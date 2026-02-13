@@ -16,6 +16,20 @@ const KAGE_EFFECT_MS = 3200;
 const CHIDORI_EFFECT_MS = 2500;
 const RASENGAN_EFFECT_MS = 2700;
 const JUTSU_COOLDOWN_MS = 4300;
+const JUTSU_VOICE_FILES = {
+  kage: {
+    ja: "assets/voice-kage-ja.mp3",
+    en: "assets/voice-kage-en.mp3",
+  },
+  chidori: {
+    ja: "assets/voice-chidori-ja.mp3",
+    en: "assets/voice-chidori-en.mp3",
+  },
+  rasengan: {
+    ja: "assets/voice-rasengan-ja.mp3",
+    en: "assets/voice-rasengan-en.mp3",
+  },
+};
 
 const CLONE_OFFSETS = [
   { x: -0.45, y: -0.03, scale: 1.0, tilt: -0.02 },
@@ -72,6 +86,7 @@ let hasPersonCutout = false;
 let activeJutsu = null;
 let activeChidoriEmitter = null;
 let activeRasenganData = null;
+const jutsuVoicePlayers = {};
 const personCutoutCanvas = document.createElement("canvas");
 const personCutoutCtx = personCutoutCanvas.getContext("2d");
 
@@ -677,6 +692,62 @@ function getAudioContext() {
   return audioCtx;
 }
 
+function createVoicePlayer(src) {
+  if (typeof Audio === "undefined") {
+    return null;
+  }
+  const clip = new Audio(src);
+  clip.preload = "auto";
+  return clip;
+}
+
+function ensureJutsuVoicePlayers(jutsuKey) {
+  if (jutsuVoicePlayers[jutsuKey]) {
+    return jutsuVoicePlayers[jutsuKey];
+  }
+  const files = JUTSU_VOICE_FILES[jutsuKey];
+  if (!files) {
+    return null;
+  }
+  jutsuVoicePlayers[jutsuKey] = {
+    ja: createVoicePlayer(files.ja),
+    en: createVoicePlayer(files.en),
+  };
+  return jutsuVoicePlayers[jutsuKey];
+}
+
+function tryPlayVoiceClip(clip, onFail) {
+  if (!clip) {
+    if (onFail) {
+      onFail();
+    }
+    return;
+  }
+  clip.pause();
+  clip.currentTime = 0;
+  const playPromise = clip.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {
+      if (onFail) {
+        onFail();
+      }
+    });
+  }
+}
+
+function playJutsuVoiceClip(jutsuKey, text, rate, pitch, fallbackText = text) {
+  const players = ensureJutsuVoicePlayers(jutsuKey);
+  if (!players) {
+    speakNarutoStyle(text, rate, pitch, fallbackText);
+    return;
+  }
+  tryPlayVoiceClip(players.ja, () => {
+    tryPlayVoiceClip(players.en, () => {
+      speakNarutoStyle(text, rate, pitch, fallbackText);
+    });
+  });
+}
+
 function pickNarutoStyleVoice() {
   if (!("speechSynthesis" in window)) {
     return null;
@@ -751,6 +822,35 @@ function primeSpeechSynthesis() {
   synth.cancel();
 }
 
+function primeVoicePlayers() {
+  for (const jutsuKey of Object.keys(JUTSU_VOICE_FILES)) {
+    const players = ensureJutsuVoicePlayers(jutsuKey);
+    if (!players) {
+      continue;
+    }
+    for (const clip of [players.ja, players.en]) {
+      if (!clip) {
+        continue;
+      }
+      clip.muted = true;
+      const playPromise = clip.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise
+          .then(() => {
+            clip.pause();
+            clip.currentTime = 0;
+            clip.muted = false;
+          })
+          .catch(() => {
+            clip.muted = false;
+          });
+      } else {
+        clip.muted = false;
+      }
+    }
+  }
+}
+
 function playKageBunshinSound() {
   const ac = getAudioContext();
   const now = ac.currentTime;
@@ -770,7 +870,7 @@ function playKageBunshinSound() {
   osc.start(now);
   osc.stop(now + 0.46);
 
-  speakNarutoStyle("影分身の術!", 1.06, 0.96, "Kage Bunshin no Jutsu");
+  playJutsuVoiceClip("kage", "影分身の術!", 1.06, 0.96, "Kage Bunshin no Jutsu");
 }
 
 function ensureNoiseBuffer(ac) {
@@ -820,7 +920,7 @@ function playChidoriSound() {
   arcOsc.start(now);
   arcOsc.stop(now + 0.67);
 
-  speakNarutoStyle("千鳥!", 1.12, 1.02, "Chidori!");
+  playJutsuVoiceClip("chidori", "千鳥!", 1.12, 1.02, "Chidori!");
 }
 
 function playRasenganSound() {
@@ -857,7 +957,7 @@ function playRasenganSound() {
   hiss.start(now);
   hiss.stop(now + 0.84);
 
-  speakNarutoStyle("螺旋丸!", 1.1, 1, "Rasengan!");
+  playJutsuVoiceClip("rasengan", "螺旋丸!", 1.1, 1, "Rasengan!");
 }
 
 async function createHandLandmarker() {
@@ -1048,6 +1148,7 @@ function frameLoop() {
 async function startCamera() {
   startBtn.disabled = true;
   setStatus("Loading models…");
+  primeVoicePlayers();
   primeSpeechSynthesis();
 
   try {
