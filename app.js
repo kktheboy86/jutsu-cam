@@ -703,6 +703,10 @@ function speakNarutoStyle(text, rate, pitch, fallbackText = text) {
     return;
   }
 
+  const synth = window.speechSynthesis;
+  // Warm voice list access improves reliability on some browsers.
+  synth.getVoices();
+
   const utterance = new SpeechSynthesisUtterance(text);
   const voice = pickNarutoStyleVoice();
   if (voice) {
@@ -717,8 +721,34 @@ function speakNarutoStyle(text, rate, pitch, fallbackText = text) {
   utterance.pitch = pitch;
   utterance.volume = 1;
 
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  utterance.onerror = () => {
+    if (!fallbackText || fallbackText === text) {
+      return;
+    }
+    const backup = new SpeechSynthesisUtterance(fallbackText);
+    backup.lang = "en-US";
+    backup.rate = 1;
+    backup.pitch = 1;
+    backup.volume = 1;
+    synth.cancel();
+    synth.speak(backup);
+  };
+
+  synth.cancel();
+  // Small delay avoids cancel/speak race in some engines.
+  window.setTimeout(() => synth.speak(utterance), 35);
+}
+
+function primeSpeechSynthesis() {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+  const synth = window.speechSynthesis;
+  synth.getVoices();
+  const primer = new SpeechSynthesisUtterance(" ");
+  primer.volume = 0;
+  synth.speak(primer);
+  synth.cancel();
 }
 
 function playKageBunshinSound() {
@@ -1018,6 +1048,7 @@ function frameLoop() {
 async function startCamera() {
   startBtn.disabled = true;
   setStatus("Loading models…");
+  primeSpeechSynthesis();
 
   try {
     if (!handLandmarker) {
