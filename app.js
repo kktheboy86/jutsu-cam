@@ -698,7 +698,7 @@ function pickNarutoStyleVoice() {
   return preferred || japaneseVoices[0];
 }
 
-function speakNarutoStyle(text, rate, pitch) {
+function speakNarutoStyle(text, rate, pitch, fallbackText = text) {
   if (!("speechSynthesis" in window)) {
     return;
   }
@@ -709,7 +709,9 @@ function speakNarutoStyle(text, rate, pitch) {
     utterance.voice = voice;
     utterance.lang = voice.lang;
   } else {
-    utterance.lang = "ja-JP";
+    // Fallback for browsers without Japanese voices.
+    utterance.text = fallbackText;
+    utterance.lang = "en-US";
   }
   utterance.rate = rate;
   utterance.pitch = pitch;
@@ -738,7 +740,7 @@ function playKageBunshinSound() {
   osc.start(now);
   osc.stop(now + 0.46);
 
-  speakNarutoStyle("影分身の術!", 1.06, 0.96);
+  speakNarutoStyle("影分身の術!", 1.06, 0.96, "Kage Bunshin no Jutsu");
 }
 
 function ensureNoiseBuffer(ac) {
@@ -788,7 +790,7 @@ function playChidoriSound() {
   arcOsc.start(now);
   arcOsc.stop(now + 0.67);
 
-  speakNarutoStyle("千鳥!", 1.12, 1.02);
+  speakNarutoStyle("千鳥!", 1.12, 1.02, "Chidori!");
 }
 
 function playRasenganSound() {
@@ -825,7 +827,7 @@ function playRasenganSound() {
   hiss.start(now);
   hiss.stop(now + 0.84);
 
-  speakNarutoStyle("螺旋丸!", 1.1, 1);
+  speakNarutoStyle("螺旋丸!", 1.1, 1, "Rasengan!");
 }
 
 async function createHandLandmarker() {
@@ -975,10 +977,10 @@ function frameLoop() {
         if (now > cooldownUntil) {
           if (isKageBunshinSeal(latestHands)) {
             triggerKageBunshin(now);
-          } else if (chidoriCandidate) {
-            triggerChidori(now, chidoriCandidate);
           } else if (rasenganCandidate) {
             triggerRasengan(now, rasenganCandidate);
+          } else if (chidoriCandidate) {
+            triggerChidori(now, chidoriCandidate);
           }
         }
       }
