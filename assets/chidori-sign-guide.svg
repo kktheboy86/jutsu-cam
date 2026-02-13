@@ -1,0 +1,49 @@
+<svg width="1024" height="640" viewBox="0 0 1024 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D1934"/>
+      <stop offset="1" stop-color="#111C3E"/>
+    </linearGradient>
+    <linearGradient id="handTone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2C9A9"/>
+      <stop offset="1" stop-color="#D09773"/>
+    </linearGradient>
+    <radialGradient id="spark" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(740 300) scale(120)">
+      <stop stop-color="#E9FAFF"/>
+      <stop offset="0.45" stop-color="#72D7FF"/>
+      <stop offset="1" stop-color="#0A5CFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="640" fill="url(#bg)"/>
+
+  <g>
+    <rect x="560" y="218" width="120" height="250" rx="56" fill="url(#handTone)"/>
+    <rect x="640" y="198" width="58" height="240" rx="26" fill="url(#handTone)"/>
+    <rect x="702" y="196" width="58" height="238" rx="26" fill="url(#handTone)"/>
+    <rect x="764" y="210" width="54" height="220" rx="24" fill="url(#handTone)"/>
+    <rect x="819" y="236" width="50" height="190" rx="22" fill="url(#handTone)"/>
+    <rect x="525" y="312" width="64" height="155" rx="26" transform="rotate(-26 525 312)" fill="url(#handTone)"/>
+  </g>
+
+  <g opacity="0.85">
+    <ellipse cx="742" cy="304" rx="152" ry="118" fill="url(#spark)"/>
+    <path d="M666 251L712 287L683 308L736 346" stroke="#7CE5FF" stroke-width="7" stroke-linecap="round"/>
+    <path d="M704 229L760 274L721 302L783 359" stroke="#E8FCFF" stroke-width="5" stroke-linecap="round"/>
+    <path d="M742 214L804 266L765 301L826 343" stroke="#84DAFF" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="300" y="312" width="280" height="98" rx="46" fill="url(#handTone)"/>
+    <rect x="286" y="338" width="84" height="46" rx="22" fill="url(#handTone)"/>
+    <rect x="322" y="274" width="96" height="54" rx="26" fill="url(#handTone)"/>
+    <rect x="404" y="270" width="96" height="54" rx="26" fill="url(#handTone)"/>
+    <rect x="486" y="276" width="86" height="50" rx="24" fill="url(#handTone)"/>
+  </g>
+
+  <path d="M382 348C443 334 511 332 566 342" stroke="#B67C5C" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+
+  <text x="512" y="566" fill="#E7EEFF" font-family="Avenir Next, Segoe UI, sans-serif" font-size="37" font-weight="700" text-anchor="middle">
+    Chidori: one palm open, other hand gripping near wrist
+  </text>
+</svg>

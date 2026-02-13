@@ -3,17 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kage Bunshin Cam</title>
+    <title>Jutsu Cam</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
       <header>
-        <h1>Kage Bunshin Cam</h1>
-        <p>
-          Show your hand seal. If it matches the Kage Bunshin pattern, the app
-          plays a chant and spawns 10 clones.
-        </p>
+        <h1>Jutsu Cam</h1>
+        <p>Show Your Hand Seal!</p>
       </header>
 
       <section class="controls">
@@ -28,37 +25,37 @@
         <div class="hud" id="hud">Waiting for camera…</div>
       </section>
 
-      <section class="notes">
-        <h2>Detection Pattern</h2>
-        <p>
-          Approximate Kage Bunshin-style detection: both hands visible, index +
-          middle mostly up, ring + pinky mostly folded, and hands reasonably
-          close together.
-        </p>
-        <p>
-          Chidori detection: one palm open/extended while the other hand is near
-          and holding that wrist.
-        </p>
-        <p>
-          Rasengan detection: one open palm above the other, both parallel and
-          facing each other with a visible gap in between (top fingers angled
-          down, bottom fingers angled up).
-        </p>
-      </section>
-
       <section class="guide">
         <h2>Hand Sign Guide</h2>
-        <p>Match your pose to this target sign before triggering the jutsu.</p>
+        <p>Match your pose to trigger each jutsu.</p>
         <div class="guide-grid">
           <article class="guide-card">
             <h3>Kage Bunshin</h3>
+            <p>
+              Both hands close together, index + middle up, ring + pinky mostly
+              folded.
+            </p>
             <img
               src="assets/kagebunshin-sign-guide.svg"
               alt="Reference drawing of both hands forming the Kage Bunshin style sign with index and middle fingers up, ring and pinky folded."
             />
           </article>
           <article class="guide-card">
+            <h3>Chidori</h3>
+            <p>
+              One palm fully open, while your other hand grips near that wrist.
+            </p>
+            <img
+              src="assets/chidori-sign-guide.svg"
+              alt="Reference drawing of one open palm with the other hand holding near the wrist for Chidori."
+            />
+          </article>
+          <article class="guide-card">
             <h3>Rasengan</h3>
+            <p>
+              One open palm above the other, parallel and facing each other with
+              a gap between them.
+            </p>
             <img
               src="assets/rasengan-sign-guide.svg"
               alt="Reference drawing of both open palms held parallel with a gap in the middle where a blue orb forms."
