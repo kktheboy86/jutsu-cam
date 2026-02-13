@@ -1,0 +1,56 @@
+Original prompt: let's create a new project in a new repo; create a web app that turns on the camera and recognises my hand pattern, triggers Naruto-style effects.
+
+- Added baseline camera, hand tracking, Kage Bunshin detection, and in-frame clone rendering.
+- Added person segmentation so clones apply only to the person and not the background.
+- Current TODO: add Chidori hand seal detection (open palm + other hand at wrist), electric palm effect, and Chidori voice.
+
+- Implemented second jutsu: Chidori.
+- Added `detectChidoriSeal` using open-palm score + opposite-hand wrist-grab proximity.
+- Added electric effect renderer (animated bolts + palm glow) and Chidori voice/audio.
+- Introduced jutsu routing state (`activeJutsu`) so Kage Bunshin and Chidori can trigger independently with shared cooldown.
+- Updated UI note text and README to include Chidori behavior.
+- TODO: verify in browser that Chidori detection thresholds feel right for real hand poses; tune `bestScore` threshold and wrist distance if needed.
+- Validation check: `npx` and `node` are missing in this environment, so Playwright client test loop could not be run here.
+- Updated jutsu lifecycle: effects now persist while the corresponding seal is continuously detected.
+- Removed time-based auto-expiration for Kage/Chidori visuals.
+- Added sound debounce (`JUTSU_SOUND_COOLDOWN_MS`) so audio/voice does not spam while holding a seal.
+- Removed hand landmark line rendering for cleaner visuals.
+- Validation check this turn: still cannot run Playwright loop in this environment because both `node` and `npx` are unavailable.
+- Fixed Chidori persistence bug by adding separate start/hold thresholds and a short lost-seal timeout (`CHIDORI_LOST_GRACE_MS=80`).
+- Chidori emitter now updates continuously with smoothing (`blendEmitter`) so lightning follows hand movement.
+- Increased Chidori visual size (larger palm glow and longer bolts) to better fit hand size.
+- Reworked Chidori state handling to depend on fresh camera-frame detection only (no stale per-RAF carryover).
+- Added separate Chidori start/hold thresholds and short grace window to drop effect quickly after seal loss.
+- Added `lastKageSeenAt` grace handling symmetry and reset lifecycle cleanup.
+- Tightened Chidori detector with hard geometric constraints (wrist-to-wrist, palm-to-wrist, pinch-to-wrist) and stronger open/hold/grip component minimums.
+- Added holder-hand openness constraint and open-hand separation check to reduce false positives and sticky activation.
+- Increased emitter update responsiveness (blend alpha 0.95) to improve hand-follow behavior.
+- Chidori was over-constrained in prior pass; relaxed thresholds and hard gates to restore practical detection.
+- Current tuning: start threshold 0.62, hold threshold 0.52, with immediate loss behavior still enabled to avoid sticky effect.
+- Reverted app logic to prior working style (finger landmark lines visible again).
+- Restored timed jutsu lifecycle (`effectUntil` / `cooldownUntil`) and simplified detection flow used in the earlier working state.
+- Removed later strict/persistent Chidori state machine changes and returned to prior Chidori candidate update path.
+- Added third jutsu: Rasengan.
+- Implemented `detectRasenganSeal` (both palms open, roughly horizontal/parallel, with a gap and similar height).
+- Added `renderRasenganEffect` rotating blue orb in the midpoint between palms.
+- Added Rasengan audio/voice (`playRasenganSound`) and jutsu trigger routing priority (Rasengan > Chidori > Kage during cooldown checks).
+- Updated UI/README text to include Rasengan usage.
+- Tightened distance activation for Kage Bunshin and Chidori to avoid far-apart false triggers.
+- Kage: added hard max cutoffs for wrist/fingertip distances and raised overall score threshold.
+- Chidori: increased wrist-grab weight, tightened wrist proximity scoring, and added explicit max distances (wrist-to-wrist, holder-palm-to-wrist, holder-pinch-to-wrist).
+- Updated Rasengan logic to vertical palm arrangement (one above the other), with stronger same-column + vertical-gap checks.
+- Updated Rasengan guide text and replaced SVG to show vertical stacked palms with orb in the middle gap.
+- Refined Rasengan to enforce palms facing each other (top hand toward center + bottom hand toward center) instead of same-direction palms.
+- Updated Rasengan guide copy and SVG to clearly show upper fingers down and lower fingers up.
+- Rolled back the latest Rasengan detector relaxation (orientation-independent open-palm scoring) because it interfered with Kage Bunshin.
+- Restored previous Rasengan threshold/gating profile to reduce cross-trigger conflicts.
+- Tightened Kage Bunshin ring/pinky fold requirement specifically:
+  - Added hard gate `hasStrongRingPinkyFold` for both hands.
+  - Raised ring/pinky fold score ranges and weights in `handSealScore`.
+- Goal: prevent Kage activation unless ring and pinky are clearly folded.
+- Relaxed Kage Bunshin fold strictness slightly after over-tightening:
+  - Ring/pinky score range lowered to (0.02, 0.13).
+  - Hard fold gates lowered (`ringFold/pinkyFold > 0.04`, tip-below-pip > 0.012).
+  - Final Kage total score threshold lowered from 0.62 to 0.60.
+- Further relaxed Kage Bunshin fold + closeness thresholds after detection misses.
+- Reordered trigger priority to prefer Kage Bunshin before Chidori/Rasengan to prevent Rasengan hijacking Kage attempts.

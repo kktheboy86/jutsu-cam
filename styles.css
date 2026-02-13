@@ -1,0 +1,163 @@
+:root {
+  --bg-0: #0b1020;
+  --bg-1: #131a31;
+  --accent: #f7b733;
+  --accent-2: #fc4a1a;
+  --text: #f5f7ff;
+  --muted: #b7bfd8;
+  --ok: #8df0a0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 20%, #1d2948, var(--bg-0) 60%),
+    linear-gradient(120deg, var(--bg-0), var(--bg-1));
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+p {
+  margin: 0.3rem 0;
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #151515;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  font-weight: 700;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#status {
+  font-weight: 600;
+  color: var(--ok);
+}
+
+.stage {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #03050d;
+  min-height: 60vh;
+}
+
+.stage video,
+.stage canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.stage video {
+  transform: scaleX(-1);
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hud {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.9rem;
+  background: rgba(10, 12, 20, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.notes {
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.guide {
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.guide-grid {
+  margin-top: 0.6rem;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.guide-card {
+  margin: 0;
+  padding: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 10px;
+  background: rgba(4, 8, 18, 0.56);
+}
+
+.guide-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #d7e6ff;
+}
+
+.guide img {
+  margin-top: 0.55rem;
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(5, 8, 18, 0.8);
+}
+
+@media (max-width: 720px) {
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stage {
+    min-height: 52vh;
+  }
+
+  .app {
+    padding: 0.85rem;
+  }
+}

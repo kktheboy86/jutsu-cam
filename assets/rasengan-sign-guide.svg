@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Rasengan hand seal reference</title>
+  <desc id="desc">Upper and lower open palms facing each other. Upper hand points down, lower hand points up, with a blue orb in the center gap.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101a31"/>
+      <stop offset="100%" stop-color="#1f2d4f"/>
+    </linearGradient>
+    <linearGradient id="hand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4c9a0"/>
+      <stop offset="100%" stop-color="#dea57f"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="50%" cy="45%" r="58%">
+      <stop offset="0%" stop-color="#f3fcff"/>
+      <stop offset="40%" stop-color="#8de0ff"/>
+      <stop offset="75%" stop-color="#3f95ff"/>
+      <stop offset="100%" stop-color="#1d46d6"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="520" rx="24" fill="url(#bg)"/>
+
+  <text x="600" y="62" fill="#8de0ff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="34" font-weight="700" text-anchor="middle">
+    Rasengan Pose (Palms Facing Each Other)
+  </text>
+  <text x="600" y="96" fill="#c6d1ef" font-family="Avenir Next, Segoe UI, sans-serif" font-size="20" text-anchor="middle">
+    Top hand: fingers down. Bottom hand: fingers up. Keep a center gap.
+  </text>
+
+  <g transform="translate(420,96)">
+    <rect x="0" y="0" width="360" height="116" rx="58" fill="url(#hand)"/>
+    <rect x="22" y="108" width="44" height="86" rx="21" fill="url(#hand)"/>
+    <rect x="84" y="108" width="46" height="92" rx="22" fill="url(#hand)"/>
+    <rect x="148" y="108" width="46" height="90" rx="22" fill="url(#hand)"/>
+    <rect x="212" y="108" width="44" height="82" rx="21" fill="url(#hand)"/>
+    <rect x="272" y="108" width="40" height="72" rx="19" fill="url(#hand)"/>
+  </g>
+
+  <g transform="translate(420,308)">
+    <rect x="0" y="36" width="360" height="116" rx="58" fill="url(#hand)"/>
+    <rect x="22" y="-34" width="44" height="86" rx="21" fill="url(#hand)"/>
+    <rect x="84" y="-42" width="46" height="92" rx="22" fill="url(#hand)"/>
+    <rect x="148" y="-40" width="46" height="90" rx="22" fill="url(#hand)"/>
+    <rect x="212" y="-32" width="44" height="82" rx="21" fill="url(#hand)"/>
+    <rect x="272" y="-22" width="40" height="72" rx="19" fill="url(#hand)"/>
+  </g>
+
+  <circle cx="600" cy="260" r="72" fill="url(#orb)" opacity="0.95"/>
+  <ellipse cx="600" cy="260" rx="94" ry="48" fill="none" stroke="#b5efff" stroke-width="7" opacity="0.76"/>
+  <ellipse cx="600" cy="260" rx="54" ry="90" fill="none" stroke="#9ddfff" stroke-width="6" opacity="0.66"/>
+
+  <line x1="600" y1="188" x2="600" y2="154" stroke="#8de0ff" stroke-width="6" stroke-linecap="round"/>
+  <line x1="600" y1="332" x2="600" y2="366" stroke="#8de0ff" stroke-width="6" stroke-linecap="round"/>
+
+  <text x="600" y="470" fill="#e3f6ff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="21" text-anchor="middle">
+    Do not place palms side-by-side. Stack them top and bottom facing inward.
+  </text>
+</svg>

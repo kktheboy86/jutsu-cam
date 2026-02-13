@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Kage Bunshin style hand sign reference</title>
+  <desc id="desc">Two mirrored hands close together. Index and middle fingers are extended, ring and pinky are folded.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101a31"/>
+      <stop offset="100%" stop-color="#1f2d4f"/>
+    </linearGradient>
+    <linearGradient id="hand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4c9a0"/>
+      <stop offset="100%" stop-color="#dea57f"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="520" rx="24" fill="url(#bg)"/>
+
+  <text x="600" y="62" fill="#f7b733" font-family="Avenir Next, Segoe UI, sans-serif" font-size="34" font-weight="700" text-anchor="middle">
+    Target Hand Pattern
+  </text>
+  <text x="600" y="96" fill="#c6d1ef" font-family="Avenir Next, Segoe UI, sans-serif" font-size="20" text-anchor="middle">
+    Keep both hands close: index + middle up, ring + pinky folded
+  </text>
+
+  <g transform="translate(270,160)">
+    <rect x="0" y="120" width="200" height="210" rx="82" fill="url(#hand)"/>
+    <rect x="58" y="-8" width="42" height="170" rx="22" fill="url(#hand)"/>
+    <rect x="106" y="-16" width="42" height="178" rx="22" fill="url(#hand)"/>
+    <rect x="146" y="154" width="34" height="104" rx="17" fill="url(#hand)"/>
+    <rect x="176" y="172" width="32" height="84" rx="16" fill="url(#hand)"/>
+    <rect x="-24" y="166" width="58" height="108" rx="28" fill="url(#hand)" transform="rotate(-24 -24 166)"/>
+
+    <circle cx="79" cy="338" r="10" fill="#f7b733"/>
+    <circle cx="125" cy="338" r="10" fill="#f7b733"/>
+  </g>
+
+  <g transform="translate(730,160)">
+    <rect x="0" y="120" width="200" height="210" rx="82" fill="url(#hand)"/>
+    <rect x="100" y="-8" width="42" height="170" rx="22" fill="url(#hand)"/>
+    <rect x="52" y="-16" width="42" height="178" rx="22" fill="url(#hand)"/>
+    <rect x="20" y="154" width="34" height="104" rx="17" fill="url(#hand)"/>
+    <rect x="-8" y="172" width="32" height="84" rx="16" fill="url(#hand)"/>
+    <rect x="168" y="166" width="58" height="108" rx="28" fill="url(#hand)" transform="rotate(24 168 166)"/>
+
+    <circle cx="121" cy="338" r="10" fill="#f7b733"/>
+    <circle cx="75" cy="338" r="10" fill="#f7b733"/>
+  </g>
+
+  <line x1="558" y1="170" x2="642" y2="170" stroke="#f7b733" stroke-width="6" stroke-linecap="round"/>
+  <line x1="568" y1="206" x2="632" y2="206" stroke="#f7b733" stroke-width="6" stroke-linecap="round"/>
+  <text x="600" y="248" fill="#f5f7ff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="18" text-anchor="middle">
+    Bring these raised fingers together
+  </text>
+</svg>
